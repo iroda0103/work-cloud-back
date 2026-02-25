@@ -1,0 +1,86 @@
+POST http://localhost:4000/api/users
+Content-Type: application/json
+
+{   
+    "first_name":"Jamila",
+    "last_name":"Aliyeva",
+    "birthday":"01.03.2004",
+    "email":"jamilaaliyeva32@gmail.com",
+    "role":"admin",
+    "password":"123456",
+    "phone":998991234231
+}
+
+###
+POST http://localhost:4000/api/users/login
+Content-Type: application/json
+
+{
+    "email":"dilnozaxudoynazarovna2004@gmail.com",
+    "password":"1234"
+}
+
+###
+POST http://localhost:4000/api/users/verify
+Content-Type: application/json
+
+{
+    "email":"dilnozaxudoynazarovna2004@gmail.com",
+    "code":48713
+}
+
+###===========User forgot password==================
+POST http://localhost:4000/api/users/forgot
+Content-Type: application/json
+
+{
+    "email":"iroda3242@gmail.com"
+}
+
+###===========User forgot password Verify==================
+POST http://localhost:4000/api/users/forgot-verify
+Content-Type: application/json
+
+{
+    "email":"iroda3242@gmail.com",
+    "password":"223456",
+    "code":78224
+}
+
+###
+GET http://localhost:4000/api/users?page[limit]=12&page[offset]=30
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkZmI2OTljN2VhODZjNDAzN2NiYmY4Iiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NTk4MzMxMCwiZXhwIjoxNjk2MDY5NzEwfQ.QWSWEr4wlQqRXo6_R0LTXECXLCZimlndjX5CzCRKDoY
+
+###
+GET http://localhost:4000/api/users/64dfb699c7ea86c4037cbbf8
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkZmI2OTljN2VhODZjNDAzN2NiYmY4Iiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NTk4MzMxMCwiZXhwIjoxNjk2MDY5NzEwfQ.QWSWEr4wlQqRXo6_R0LTXECXLCZimlndjX5CzCRKDoY
+###
+DELETE http://localhost:3000/api/users/64dfb699c7ea86c4037cbbf8
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwMDhlYjViNjZiMGE1MDFhZmMxYjkxIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDUzNTc1NCwiZXhwIjoxNjk0OTc4NTU0fQ.4q9yjBlaV3RyejfJhazyUzhnjbKH9_NwWq-8UsvgUzw
+
+
+###
+GET http://localhost:4000/api/users/me
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUxNzFmYjhjMmEyNDVmMzNjNTExYTUwIiwicm9sZSI6ImNsaWVudCJ9LCJpYXQiOjE2OTYwMTQ0MDUsImV4cCI6MTY5NjEwMDgwNX0.zUkzc0glDh1KXvC-OiesnwgPcMn1SsjgSIh4V7wOtR8
+
+
+###
+PATCH http://localhost:3000/api/users/64dfb699c7ea86c4037cbbf8
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwMDhlYjViNjZiMGE1MDFhZmMxYjkxIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDUzNTc1NCwiZXhwIjoxNjk0OTc4NTU0fQ.4q9yjBlaV3RyejfJhazyUzhnjbKH9_NwWq-8UsvgUzw
+Content-Type: application/json
+
+{
+    "first_name":"SMit"
+}
+
+###
+PATCH http://localhost:3000/api/users/me
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwMDkzMTBiY2U3ZjI1MjFlMmNmYzBjIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NDUzNzU1MiwiZXhwIjoxNjk0OTgwMzUyfQ.yZ84KOHeuwvhV5HUsqOpSmGWnpSt8nAln8a37iEdj_o
+Content-Type: application/json
+
+{
+    "first_name":"admin002"
+}
+
+###
+GET http://localhost:4000/api/nimadir

@@ -1,0 +1,28 @@
+POST http://localhost:4000/api/clients
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkZmI2OTljN2VhODZjNDAzN2NiYmY4Iiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NTk4MzMxMCwiZXhwIjoxNjk2MDY5NzEwfQ.QWSWEr4wlQqRXo6_R0LTXECXLCZimlndjX5CzCRKDoY
+Content-Type: application/json
+
+{   
+    "first_name":"Asilbek ",
+    "last_name":"Abudullayev",
+    "birthday":"01.03.2004",
+    "email":"dilnozaxudoynazarovna2004@gmail.com",
+    "password":"1234",
+    "phone":998880700011,
+    "teacher_id":"6516c13ff54dee99ce36eea4",
+    "service":300
+}
+
+
+###
+GET http://localhost:4000/api/clients
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkZmI2OTljN2VhODZjNDAzN2NiYmY4Iiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NTk4MzMxMCwiZXhwIjoxNjk2MDY5NzEwfQ.QWSWEr4wlQqRXo6_R0LTXECXLCZimlndjX5CzCRKDoY
+
+###
+GET http://localhost:4000/api/clients/6516f9450323ac13555e3dfe
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkZmI2OTljN2VhODZjNDAzN2NiYmY4Iiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NTk4MzMxMCwiZXhwIjoxNjk2MDY5NzEwfQ.QWSWEr4wlQqRXo6_R0LTXECXLCZimlndjX5CzCRKDoY
+
+###
+DELETE  http://localhost:4000/api/clients/6516f9590323ac13555e3e0b
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkZmI2OTljN2VhODZjNDAzN2NiYmY4Iiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTY5NTk4MzMxMCwiZXhwIjoxNjk2MDY5NzEwfQ.QWSWEr4wlQqRXo6_R0LTXECXLCZimlndjX5CzCRKDoY
+

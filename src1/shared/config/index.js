@@ -10,9 +10,16 @@ module.exports = {
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    name: process.env.DB_NAME
+    name: process.env.DB_NAME,
+    url: process.env.DB_URL
   },
   jwt: {
     secret: process.env.JWT_SECRET
+  },
+  vnc:{
+    password:process.env.VNC_PASSWORD
+  },
+  guacamole:{
+    url:process.env.GUACAMOLE_URL
   }
 };

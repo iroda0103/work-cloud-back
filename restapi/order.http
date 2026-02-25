@@ -1,0 +1,11 @@
+POST http://localhost:4000/api/orders
+Content-Type: application/json
+
+{
+    "user_id":"6516f9450323ac13555e3dfe",
+    "product_id":"65166fac3b362ef26dfbabbe"
+}
+
+
+###
+GET http://localhost:4000/api/orders
