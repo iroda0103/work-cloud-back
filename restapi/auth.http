@@ -1,0 +1,73 @@
+@base = http://localhost:3000/api
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjk5ZjVkZmJhOGFhMDZjOWRmMzI1YmMyIiwidXNlcm5hbWUiOiJzdHVkZW50MSIsInJvbGUiOiJzdHVkZW50In0sImlhdCI6MTc3MjA1MzI3NywiZXhwIjoxNzcyMTM5Njc3fQ.tsWZVwv-6t5aN2cR309HvR_2M6CE-OnWB9JuCNDWf0s
+
+### ============================================================
+### REGISTER — Ro'yxatdan o'tish
+### ============================================================
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "student1",
+  "email": "student1@workcloud.uz",
+  "password": "Student123!"
+}
+
+###
+### REGISTER — Teacher
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "teacher1",
+  "email": "teacher1@workcloud.uz",
+  "password": "Teacher123!"
+}
+
+###
+### REGISTER — validatsiya xatosi (qisqa parol)
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "ab",
+  "email": "notanemail",
+  "password": "123"
+}
+
+### ============================================================
+### LOGIN — Kirish → token olish
+### ============================================================
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "student1",
+  "password": "Student123!"
+}
+
+###
+### LOGIN — Admin
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "Admin123!"
+}
+
+###
+### LOGIN — noto'g'ri parol (401)
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "student1",
+  "password": "wrongpassword"
+}
+
+### ============================================================
+### LOGOUT — Chiqish
+### ============================================================
+POST {{base}}/auth/logout
+Authorization: Bearer {{token}}

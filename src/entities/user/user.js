@@ -1,89 +1,54 @@
-const { InvalidPropertyError } = require("../../shared/errors");
+const { InvalidPropertyError } = require('../../shared/errors')
 
 module.exports = function buildMakeUser({ Id, Hash }) {
   return function makeUser({
     id = Id.makeId(),
-    first_name,
-    last_name,
-    role,
-    birthday,
+    username,
     email,
     password,
-    phone,
-    photo='default.png'
+    password_hash,
+    role = 'student',
+    is_active = true,
+    last_login_at = null,
   } = {}) {
-    if (!last_name) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli last_name bo'lishi shart."
-      );
+    if (!id) throw new InvalidPropertyError("Foydalanuvchida yaroqli id bo'lishi shart.")
+
+    if (!username || username.trim().length < 3 || username.trim().length > 30) {
+      throw new InvalidPropertyError("Username 3-30 belgi orasida bo'lishi shart.")
     }
 
-    if (!email) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli email bo'lishi shart."
-      );
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new InvalidPropertyError("Yaroqli email manzil kiritilishi shart.")
     }
 
-    if (!password) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli password bo'lishi shart."
-      );
+    if (!password && !password_hash) {
+      throw new InvalidPropertyError("Parol kiritilishi shart.")
     }
 
-    if (!phone || !isValidphone(phone)) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli phone bo'lishi shart."
-      );
+    if (password && password.length < 8) {
+      throw new InvalidPropertyError("Parol kamida 8 belgidan iborat bo'lishi shart.")
     }
 
-    if (!id) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli id bo'lishi shart."
-      );
+    if (!['student', 'teacher', 'admin'].includes(role)) {
+      throw new InvalidPropertyError("Role: student | teacher | admin bo'lishi shart.")
     }
 
-    if (!role) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli rol (role) bo'lishi shart."
-      );
-    }
-
-    if (!["admin", "teacher", "client"].includes(role)) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli role bo'lishi kk"
-      );
-    }
-
-    if (!first_name) {
-      throw new InvalidPropertyError(
-        "Foydalanuvchida yaroqli firts_name bo'lishi shart."
-      );
-    }
+    let _password_hash = password_hash || null
 
     return Object.freeze({
-      getId: () => id,
-      getFirstName: () => first_name,
-      getLastName: () => last_name,
-      getRole: () => role,
-      getEmail: () => email,
-      getPassword: () => password,
-      getBirthDate: () => birthday,
-      getPhoneNumber: () => phone,
-      getPhoto:()=>photo,
-      hashPassword,
-      comparePassword
-    });
-
-    function isValidphone(phone) {
-      return phone > 998000000000 && phone < 998999999999
-    }
-
-    function hashPassword() {
-      password = Hash.generate(password);
-    }
-
-    function comparePassword(plain) {
-      return Hash.compare(plain, password);
-    }
-  };
-};
+      getId:           () => id,
+      getUsername:     () => username.trim(),
+      getEmail:        () => email.toLowerCase().trim(),
+      getRole:         () => role,
+      getIsActive:     () => is_active,
+      getLastLoginAt:  () => last_login_at,
+      getPasswordHash: () => _password_hash,
+      hashPassword() {
+        if (password) _password_hash = Hash.generate(password)
+      },
+      comparePassword(plain) {
+        return Hash.compare(plain, _password_hash)
+      },
+    })
+  }
+}

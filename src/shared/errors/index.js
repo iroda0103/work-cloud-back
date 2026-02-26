@@ -58,11 +58,19 @@ class ForbiddenError extends Error {
   }
 }
 
+class ServiceUnavailableError extends Error {
+  constructor(msg) {
+    super(msg);
+    if (Error.captureStackTrace) Error.captureStackTrace(this, ServiceUnavailableError);
+  }
+}
+
 module.exports = {
   InvalidPropertyError,
   UnauthorizedError,
   ConflictError,
   NotFoundError,
   ForbiddenError,
-  BadRequestError
+  BadRequestError,
+  ServiceUnavailableError,
 };

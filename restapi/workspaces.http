@@ -1,0 +1,95 @@
+@base         = http://localhost:3000/api
+@token        = PASTE_TOKEN_HERE
+@workspaceId  = PASTE_WORKSPACE_ID_HERE
+
+### ============================================================
+### GET /workspaces — Barcha workspacelarim
+### ============================================================
+GET {{base}}/workspaces
+Authorization: Bearer {{token}}
+
+### ============================================================
+### POST /workspaces — Yangi workspace yaratish
+### ============================================================
+POST {{base}}/workspaces
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Python Lab",
+  "template": "python"
+}
+
+###
+### ubuntu-base template
+POST {{base}}/workspaces
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Asosiy muhit",
+  "template": "ubuntu-base"
+}
+
+###
+### nodejs template
+POST {{base}}/workspaces
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Node.js Lab",
+  "template": "nodejs"
+}
+
+###
+### fullstack template
+POST {{base}}/workspaces
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Fullstack Lab",
+  "template": "fullstack"
+}
+
+###
+### Validatsiya xatosi — noto'g'ri template (400)
+POST {{base}}/workspaces
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "template": "windows"
+}
+
+### ============================================================
+### GET /workspaces/:id — Bitta workspace
+### ============================================================
+GET {{base}}/workspaces/{{workspaceId}}
+Authorization: Bearer {{token}}
+
+### ============================================================
+### POST /workspaces/:id/start — Ishga tushirish
+### ============================================================
+POST {{base}}/workspaces/{{workspaceId}}/start
+Authorization: Bearer {{token}}
+
+### ============================================================
+### POST /workspaces/:id/stop — To'xtatish
+### ============================================================
+POST {{base}}/workspaces/{{workspaceId}}/stop
+Authorization: Bearer {{token}}
+
+### ============================================================
+### GET /workspaces/:id/sessions — Sessiya tarixi
+### ============================================================
+GET {{base}}/workspaces/{{workspaceId}}/sessions
+Authorization: Bearer {{token}}
+
+### ============================================================
+### DELETE /workspaces/:id — O'chirish (avval to'xtating!)
+### ============================================================
+DELETE {{base}}/workspaces/{{workspaceId}}
+Authorization: Bearer {{token}}

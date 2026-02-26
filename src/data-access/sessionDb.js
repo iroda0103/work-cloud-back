@@ -1,12 +1,11 @@
-const model = require('./mongo/models/userModel')
+const model = require('./mongo/models/sessionModel')
 
-const usersDb = Object.freeze({
+const sessionDb = Object.freeze({
   insert,
   findAll,
   findById,
   findOne,
-  remove,
-  update,
+  disconnect,
 })
 
 async function insert({ id: _id, ...info }) {
@@ -15,17 +14,8 @@ async function insert({ id: _id, ...info }) {
   return { id, ...rest }
 }
 
-async function findAll({ filters = {}, q, page, sort } = {}) {
-  const filter = { ...filters }
-
-  if (q) {
-    filter.$or = [
-      { username: { $regex: `.*${q}.*`, $options: 'i' } },
-      { email:    { $regex: `.*${q}.*`, $options: 'i' } },
-    ]
-  }
-
-  let dbQuery = model.find(filter)
+async function findAll({ filters = {}, page, sort } = {}) {
+  let dbQuery = model.find(filters)
 
   const total = await dbQuery.clone().countDocuments().exec()
 
@@ -38,7 +28,6 @@ async function findAll({ filters = {}, q, page, sort } = {}) {
   }
 
   const result = await dbQuery.lean()
-
   const data = result.map(({ _id: id, ...info }) => ({ id, ...info }))
 
   return { data, total }
@@ -58,14 +47,14 @@ async function findOne(filter) {
   return { id, ...info }
 }
 
-async function remove({ id: _id }) {
-  return model.deleteOne({ _id })
-}
-
-async function update({ id: _id, ...data }) {
-  const result = await model.findOneAndUpdate({ _id }, data, { new: true }).lean()
+// Sessiyani yopish: disconnected_at va duration_sec to'ldirish
+async function disconnect({ id: _id, disconnected_at, duration_sec }) {
+  const result = await model
+    .findOneAndUpdate({ _id }, { disconnected_at, duration_sec }, { new: true })
+    .lean()
+  if (!result) return null
   const { _id: id, ...rest } = result
   return { id, ...rest }
 }
 
-module.exports = usersDb
+module.exports = sessionDb

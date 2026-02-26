@@ -1,0 +1,67 @@
+@base        = http://localhost:3000/api
+@adminToken  = PASTE_ADMIN_TOKEN_HERE
+@userId      = PASTE_USER_ID_HERE
+
+### ============================================================
+### GET /admin/users — Barcha foydalanuvchilar
+### ============================================================
+GET {{base}}/admin/users
+Authorization: Bearer {{adminToken}}
+
+###
+### Qidiruv
+GET {{base}}/admin/users?q=student
+Authorization: Bearer {{adminToken}}
+
+### ============================================================
+### PATCH /admin/users/:id — Foydalanuvchini bloklash
+### ============================================================
+PATCH {{base}}/admin/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "is_active": false
+}
+
+###
+### Foydalanuvchini aktivlashtirish
+PATCH {{base}}/admin/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "is_active": true
+}
+
+###
+### Role o'zgartirish: student → teacher
+PATCH {{base}}/admin/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "role": "teacher"
+}
+
+###
+### is_active + role birgalikda
+PATCH {{base}}/admin/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "is_active": true,
+  "role": "student"
+}
+
+### ============================================================
+### GET /admin/workspaces — Barcha workspacelar + holat
+### ============================================================
+GET {{base}}/admin/workspaces
+Authorization: Bearer {{adminToken}}
+
+###
+### Ruxsatsiz foydalanuvchi (403)
+GET {{base}}/admin/workspaces
+Authorization: Bearer STUDENT_TOKEN_HERE

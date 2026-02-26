@@ -1,22 +1,54 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
-const schema = new mongoose.Schema(
+const userSchema = new Schema(
   {
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
-    birthday: { type: String, required: true },
-    phone: { type: Number, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, required: true },
-    photo: { type: String, required: true },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 30,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password_hash: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ['student', 'teacher', 'admin'],
+      default: 'student',
+    },
+    is_active: {
+      type: Boolean,
+      default: true,
+    },
+    last_login_at: {
+      type: Date,
+      default: null,
+    },
   },
   {
-    toJSON: { virtuals: true },
-    versionKey: false,
-    timestamps: false
+    timestamps: true,
   }
-);
+)
 
+userSchema.index({ username: 1 })
+userSchema.index({ email: 1 })
 
-module.exports = mongoose.model("User", schema);
+userSchema.set('toJSON', {
+  transform: (doc, ret) => {
+    delete ret.password_hash
+    return ret
+  },
+})
+
+module.exports = mongoose.model('User', userSchema)
